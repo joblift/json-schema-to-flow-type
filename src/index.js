@@ -28,29 +28,28 @@ export {
   toFlowType,
 };
 
-export const toFlow = (flowSchema: FlowSchema): Object =>
+export const toFlow = (flowSchema: FlowSchema, prefix: string = ''): Object =>
   t.exportNamedDeclaration(
     t.typeAlias(
-      t.identifier(upperCamelCase(flowSchema.$id)),
+      t.identifier(prefix + upperCamelCase(flowSchema.$id)),
       null,
-      toFlowType(flowSchema),
+      toFlowType(flowSchema, prefix),
     ),
     [],
   );
 
-export const schemaToFlow = (flowSchema: FlowSchema): string =>
+export const schemaToFlow = (flowSchema: FlowSchema, prefix: string = ''): string =>
   _.map(
     [
-      ...(_.map(flowSchema.$definitions, toFlow)),
-      toFlow(flowSchema),
+      ...(_.map(flowSchema.$definitions, schema => toFlow(schema, prefix))),
+      toFlow(flowSchema, prefix),
     ],
     (ast: Object): string => generate(ast).code,
   ).join('\n\n');
 
-export const parseSchema = (schema: Schema, imports: ?{ [key: string]: Schema }): string =>
+export const parseSchema = (schema: Schema, imports: ?{ [key: string]: Schema }, prefix: string = ''): string =>
   _.flow(
     (s: Schema) => simplifySchema(s, imports),
     convertSchema,
-    schemaToFlow,
+    s => schemaToFlow(s, prefix),
   )(schema);
-

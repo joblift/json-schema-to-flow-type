@@ -9,20 +9,28 @@ import {
   parseSchema,
 } from '../index';
 
-const stringify = (str: string): string => `// @flow
-/* eslint-disable */
-
-${str}
-`;
 
 test('convert schema json', (t) => {
   const result = parseSchema({
     ...schemaJSON,
     id: 'Schema',
   });
-
-  fse.outputFileSync('./definitions/Schema.js', stringify(result));
+  const savedResult = fse.readFileSync('./definitions/Schema.js', 'utf8');
+  t.is(result, savedResult);
+  fse.outputFileSync('./definitions/Schema.js', result);
   t.pass('coverts json schema');
+});
+
+test('convert schema json with prefix', (t) => {
+  const result = parseSchema({
+    ...schemaJSON,
+    id: 'Schema',
+  }, undefined, 'prefix$');
+
+  const savedResult = fse.readFileSync('./definitions/SchemaWithPrefix.js', 'utf8');
+  t.is(result, savedResult);
+  fse.outputFileSync('./definitions/SchemaWithPrefix.js', result);
+  t.pass('coverts json schema with prefix');
 });
 
 test('convert swagger json', (t) => {
@@ -33,6 +41,6 @@ test('convert swagger json', (t) => {
     './fixtures/schema.json': schemaJSON,
   });
 
-  fse.outputFileSync('./definitions/Swagger.js', stringify(result));
+  fse.outputFileSync('./definitions/Swagger.js', result);
   t.pass('coverts swagger schema');
 });

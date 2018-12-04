@@ -1,6 +1,3 @@
-// @flow
-/* eslint-disable */
-
 export type Inheritance = {
   key1?: string,
   key2?: string,

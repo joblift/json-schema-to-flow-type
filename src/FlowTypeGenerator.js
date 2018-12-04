@@ -61,9 +61,9 @@ const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor)
   );
 };
 
-export const toFlowType = (flowSchema: FlowSchema): Object => {
+export const toFlowType = (flowSchema: FlowSchema, prefix: string = ''): Object => {
   if (flowSchema.$flowRef) {
-    return t.genericTypeAnnotation(t.identifier(upperCamelCase(flowSchema.$flowRef)));
+    return t.genericTypeAnnotation(t.identifier(prefix + upperCamelCase(flowSchema.$flowRef)));
   }
 
   if (flowSchema.$enum) {
@@ -76,19 +76,19 @@ export const toFlowType = (flowSchema: FlowSchema): Object => {
   }
 
   if (flowSchema.$flowType === 'Array') {
-    return processArraySchema(flowSchema, toFlowType);
+    return processArraySchema(flowSchema, schema => toFlowType(schema, prefix));
   }
 
   if (flowSchema.$flowType === 'Object') {
-    return processObjectSchema(flowSchema, toFlowType);
+    return processObjectSchema(flowSchema, schema => toFlowType(schema, prefix));
   }
 
   if (flowSchema.$union) {
-    return t.unionTypeAnnotation(_.map(flowSchema.$union, toFlowType));
+    return t.unionTypeAnnotation(_.map(flowSchema.$union, schema => toFlowType(schema, prefix)));
   }
 
   if (flowSchema.$intersection) {
-    return t.intersectionTypeAnnotation(_.map(flowSchema.$intersection, toFlowType));
+    return t.intersectionTypeAnnotation(_.map(flowSchema.$intersection, schema => toFlowType(schema, prefix)));
   }
 
 
