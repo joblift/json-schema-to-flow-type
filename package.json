@@ -1,5 +1,5 @@
 {
-  "name": "json-schema-to-flow-type",
+  "name": "@marudor/json-schema-to-flow-type",
   "version": "1.0.0",
   "ava": {
     "files": [
