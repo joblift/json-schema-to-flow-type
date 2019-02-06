@@ -39,7 +39,8 @@ export class FlowSchema {
   $union: ?Array<FlowSchema>;
   $intersection: ?Array<FlowSchema>;
   $definitions: { [key: string]: FlowSchema };
-  $exact: ?boolean
+  $exact: ?boolean;
+  $deprecated: ?string;
 
   static omitUndefined = (arr: Array<any>): Array<any> =>
     _.filter(arr, (item: any): any => !_.isUndefined(item));
@@ -58,6 +59,7 @@ export class FlowSchema {
     this.$properties = flowSchema.$properties;
     this.$required = flowSchema.$required;
     this.$exact = flowSchema.$exact;
+    this.$deprecated = flowSchema.$deprecated;
   }
 
   $set(key: string, value: any) {
@@ -65,6 +67,10 @@ export class FlowSchema {
       ...this,
       [key]: value,
     });
+  }
+
+  deprecated(deprecated: ?string): FlowSchema{
+    return this.$set('$deprecated', deprecated);
   }
 
   id(id: ?string): FlowSchema {
@@ -154,6 +160,7 @@ export const convertSchema = (schema: Schema): FlowSchema => {
   const f = flow()
     .id(schema.id)
     .enum(schema.enum)
+    .deprecated(schema.deprecated)
     .definitions(
       _.mapValues(
         schema.definitions,

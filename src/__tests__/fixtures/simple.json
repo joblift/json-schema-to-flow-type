@@ -1,0 +1,21 @@
+{
+  "id": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Core schema meta-schema",
+    "type": "object",
+    "properties": {
+      "deprecated": {
+        "type": "string",
+        "deprecated": "deprecation"
+      },
+      "id": {
+        "type": "string",
+        "format": "uri",
+        "deprecated": "deprecation"
+      },
+      "id2": {
+        "type": "string",
+        "format": "uri"
+      }
+    }
+}

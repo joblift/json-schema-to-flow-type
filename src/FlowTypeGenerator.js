@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import * as t from '@babel/types';
+import generate from '@babel/generator';
 
 import { isValidObjectKey } from './validateIdentifier';
 
@@ -25,7 +26,7 @@ const processArraySchema = (flowSchema: FlowSchema, processor: SchemaProcessor):
   );
 
 const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor): Object => {
-  const properties = _.map(
+  let properties = _.map(
     flowSchema.$properties || {},
     (fieldFlowSchema: FlowSchema, field: string) => {
       const identifier = isValidObjectKey(field)
@@ -37,6 +38,10 @@ const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor)
         processor(fieldFlowSchema),
       );
 
+      if (fieldFlowSchema.$deprecated) {
+        ast.$deprecated = fieldFlowSchema.$deprecated;
+      }
+
       if (_.includes(flowSchema.$required, field)) {
         return ast;
       }
@@ -44,6 +49,15 @@ const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor)
       return optional(ast);
     },
   );
+  const deprecatedCommentAnchor = properties.find(p => !p.$deprecated);
+  properties = properties.filter((p) => {
+    if (p.$deprecated) {
+      t.addComment(deprecatedCommentAnchor, 'leading', ` ${generate(p).code}`, true);
+      t.addComment(deprecatedCommentAnchor, 'leading', ` DEPRECATED: ${p.$deprecated}`, true);
+      return false;
+    }
+    return true;
+  });
 
 
   return t.objectTypeAnnotation(
