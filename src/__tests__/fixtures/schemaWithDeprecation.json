@@ -192,6 +192,7 @@
     },
     "properties": {
       "type": "object",
+      "deprecated": "Deprecated object",
       "additionalProperties": {
         "$ref": "#"
       },

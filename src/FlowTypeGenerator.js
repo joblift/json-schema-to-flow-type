@@ -52,7 +52,10 @@ const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor)
   const deprecatedCommentAnchor = properties.find(p => !p.$deprecated);
   properties = properties.filter((p) => {
     if (p.$deprecated) {
-      t.addComment(deprecatedCommentAnchor, 'leading', ` ${generate(p).code}`, true);
+      const oldDef = generate(p).code;
+      oldDef.split('\n').reverse().forEach(l => {
+        t.addComment(deprecatedCommentAnchor, 'leading', ` ${l}`, true);
+      })
       t.addComment(deprecatedCommentAnchor, 'leading', ` DEPRECATED: ${p.$deprecated}`, true);
       return false;
     }

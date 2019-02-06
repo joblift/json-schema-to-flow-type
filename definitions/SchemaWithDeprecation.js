@@ -24,6 +24,10 @@ export type SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | 
 export type StringArray = Array<string>;
 
 export type Schema = {
+  // DEPRECATED: Deprecated object
+  // properties?: {
+  //   [key: any]: Schema
+  // }
   // DEPRECATED: This is deprecated
   // exclusiveMaximum?: boolean
   // DEPRECATED: This is deprecated
@@ -51,9 +55,6 @@ export type Schema = {
   required?: StringArray,
   additionalProperties?: boolean | Schema,
   definitions?: {
-    [key: any]: Schema
-  },
-  properties?: {
     [key: any]: Schema
   },
   patternProperties?: {

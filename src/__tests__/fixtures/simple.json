@@ -16,6 +16,14 @@
       "id2": {
         "type": "string",
         "format": "uri"
+      },
+      "properties": {
+        "type": "object",
+        "deprecated": "Deprecated object",
+        "additionalProperties": {
+          "$ref": "#"
+        },
+        "default": {}
       }
     }
 }
