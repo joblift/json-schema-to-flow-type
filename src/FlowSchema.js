@@ -132,7 +132,7 @@ export const flow = (flowType: ?FlowType): FlowSchema =>
 
 export const convertSchema = (schema: Schema): FlowSchema => {
   if (schema.$ref) {
-    return flow().id(schema.id).flowRef(schema.$ref);
+    return flow().id(schema.id).flowRef(schema.$ref).deprecated(schema.deprecated);
   }
 
   if (schema.allOf) {

@@ -1,0 +1,170 @@
+{
+    "id": "http://joblift.de/configuration/common#",
+    "$schema": "http://joblift.de/configuration/schema#",
+    "definitions": {
+      "notEmptyString": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[^ \t].*"
+      },
+      "devices": {
+        "title": "Devices",
+        "type": "array",
+        "uniqueItems": true,
+        "items": { "$ref": "#/definitions/device" }
+      },
+      "device": {
+        "enum": ["desktop", "tv", "tablet", "phone", "car", "bot"],
+        "enumNames": ["Desktop", "TV", "Tablet", "Phone", "Car", "Bot"]
+      },
+      "site-raw": { "title": "Site", "type": "string", "pattern": "^[a-z]{2}$" },
+      "sites": {
+        "title": "Sites",
+        "type": "array",
+        "uniqueItems": true,
+        "items": { "$ref": "#/definitions/site" }
+      },
+      "site": {
+        "title": "Site",
+        "type": "string",
+        "pattern": "^[a-z]{2}$",
+        "configapi-options": {
+          "href": "http://joblift.de/api/site-config-service/options/sites"
+        }
+      },
+      "language": {
+        "title": "Language",
+        "enum": ["de", "nl", "fr", "en", "en-GB", "en-US"],
+        "enumNames": [
+          "German",
+          "Dutch",
+          "French",
+          "English",
+          "English (GB)",
+          "English (US)"
+        ]
+      },
+      "core-language": {
+        "title": "Language",
+        "description": "Non-localized language",
+        "enum": ["de", "nl", "fr", "en"],
+        "enumNames": ["German", "Dutch", "French", "English"]
+      },
+      "item-language": {
+        "title": "Language",
+        "description": "The language codes of items present in the search index. Feel free to update this enum as new languages are imported into the index. Note that the order is based on the number of documents per language in the index, as of april 23rd 2018.",
+        "enum": [
+          "en",
+          "de",
+          "fr",
+          "nl",
+          "it",
+          "ca",
+          "sq",
+          "da",
+          "es",
+          "ro",
+          "no",
+          "hu",
+          "pl",
+          "af",
+          "br",
+          "ru",
+          "cy",
+          "pt",
+          "ar",
+          "cs",
+          "el",
+          "bg",
+          "ja",
+          "ms",
+          "zh-CN",
+          "ast",
+          "hr",
+          "an",
+          "et",
+          "eu",
+          "ga",
+          "gl",
+          "id",
+          "ko",
+          "mt",
+          "sl",
+          "so",
+          "sv",
+          "is",
+          "fi",
+          "he",
+          "ht",
+          "oc",
+          "tl",
+          "tr",
+          "uk"
+        ],
+        "enumNames": [
+          "English (en)",
+          "German (de)",
+          "French (fr)",
+          "Dutch (nl)",
+          "Italian (it)",
+          "Catalan (ca)",
+          "Albanian (sq)",
+          "Danish (da)",
+          "Spanish (es)",
+          "Romanian (ro)",
+          "Norwegian (no)",
+          "Hungarian (hu)",
+          "Polish (pl)",
+          "Afrikaans (af)",
+          "Breton (br)",
+          "Russian (ru)",
+          "Welsh (cy)",
+          "Portuguese (pt)",
+          "Arabic (ar)",
+          "Czech (cs)",
+          "Greek (el)",
+          "Bulgarian (bg)",
+          "Japanese (ja)",
+          "Malay (ms)",
+          "Chinese (zh-CN)",
+          "ast",
+          "Croatian (hr)",
+          "Aragonese (an)",
+          "Estonian (et)",
+          "Basque (eu)",
+          "Irish (ga)",
+          "Galician (gl)",
+          "Indonesian (id)",
+          "Korean (ko)",
+          "Maltese (mt)",
+          "Slovenian (sl)",
+          "Somali (so)",
+          "Swedish (sv)",
+          "Icelandic (is)",
+          "Finnish (fi)",
+          "Hebrew (he)",
+          "Haitian (ht)",
+          "Occitan (oc)",
+          "Tagalog (tl)",
+          "Turkish (tr)",
+          "Ukrainian (uk)"
+        ]
+      },
+      "currency": {
+        "title": "Currency",
+        "description": "Countries currency",
+        "enum": ["EUR", "USD", "GBP", "CAD"]
+      },
+      "currencySymbol": {
+        "title": "Currency Symbol",
+        "description": "Countries currency symbol",
+        "enum": ["€", "£", "$"]
+      },
+      "queryType": {
+        "title": "Query Type",
+        "type": "string",
+        "enum": ["LOCATION", "TITLE", "TITLE_LOCATION"],
+        "enumNames": ["Citycampaign", "Title", "Expert"]
+      }
+    }
+  }

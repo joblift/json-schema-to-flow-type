@@ -4,6 +4,8 @@ import test from 'ava';
 import fse from 'fs-extra';
 import schemaJSON from './fixtures/schema.json';
 import schemaWithDeprecationJSON from './fixtures/schemaWithDeprecation.json';
+import appConfigJSON from './fixtures/appConfig.json';
+import appConfigDependencyCommonJSON from './fixtures/appConfigDependencyCommon.json';
 import simpleJSON from './fixtures/simple.json';
 import swaggerJSON from './fixtures/swagger.json';
 
@@ -56,6 +58,20 @@ test('convert simple json', t => {
   const savedResult = fse.readFileSync('./definitions/simple.js', 'utf8');
   t.is(result, savedResult);
   // fse.outputFileSync('./definitions/simple.js', result);
+  t.pass('coverts json schema with deprecation');
+})
+
+test('convert appConfig json', t => {
+  const result = parseSchema({
+    ...appConfigJSON,
+    id: 'Schema',
+  }, {
+    'http://joblift.de/configuration/common': appConfigDependencyCommonJSON,
+  });
+
+  const savedResult = fse.readFileSync('./definitions/appConfig.js', 'utf8');
+  t.is(result, savedResult);
+  // fse.outputFileSync('./definitions/appConfig.js', result);
   t.pass('coverts json schema with deprecation');
 })
 

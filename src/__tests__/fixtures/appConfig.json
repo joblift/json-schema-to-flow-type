@@ -1,0 +1,1581 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "AppConfig",
+  "title": "AppConfig within Context",
+  "type": "object",
+  "properties": {
+    "tld": {
+      "type": "string",
+      "title": "Top Level Domain",
+      "description": "The last segment of the domain name",
+      "pattern": "^([a-z]{2}.)?[a-z]{2,3}$"
+    },
+    "currency": {
+      "type": "string",
+      "title": "Currency",
+      "description": "Countrys currency",
+      "default": "€",
+      "deprecated": "lives in site-config"
+    },
+    "defaultLocale": {
+      "title": "Default Locale",
+      "type": "string",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+      "deprecated": "lives in site-config",
+      "$ref": "http://joblift.de/configuration/common#/definitions/language"
+    },
+    "baseUrl": {
+      "title": "Base URL",
+      "type": "string",
+      "format": "uri",
+      "deprecated": "lives in site-config"
+    },
+    "allowRobots": {
+      "title": "Allow robots",
+      "description": "Allow/Disallow robots to crawl this site",
+      "type": "boolean",
+      "default": true
+    },
+    "protocol": {
+      "title": "Protocol",
+      "type": "string",
+      "pattern": "^https?$",
+      "default": "https"
+    },
+    "socialNetworkAccounts": {
+      "title": "Social Network Accounts",
+      "$ref": "#/definitions/socialAccounts"
+    },
+    "gtm": {
+      "title": "Google Tag Manager",
+      "$ref": "#/definitions/googleTagManager"
+    },
+    "appcast": { "title": "Appcast tracking", "$ref": "#/definitions/appcast" },
+    "features": { "title": "Features", "$ref": "#/definitions/features" },
+    "cmsEnv": {
+      "title": "Enviroment for CMS contents",
+      "description": "Get contents from our CMS for the specified enviroment",
+      "type": "string",
+      "pattern": "^[a-z]+$"
+    },
+    "radiusSearch": {
+      "title": "RadiusSearch dropdown values",
+      "description": "Defines the values in the radius search except the default search radius",
+      "type": "object",
+      "properties": {
+        "numbers": { "type": "array", "items": { "type": "number", "min": 0 } }
+      }
+    },
+    "loginHost": { "type": "string" },
+    "site": {
+      "$ref": "http://joblift.de/configuration/common#/definitions/site"
+    },
+    "urlschema": { "type": "object" },
+    "routes": { "type": "object" },
+    "userAgent": { "type": "string" }
+  },
+  "required": [
+    "tld",
+    "defaultLocale",
+    "baseUrl",
+    "gtm",
+    "features",
+    "loginHost",
+    "site",
+    "urlschema",
+    "routes",
+    "userAgent"
+  ],
+  "definitions": {
+    "country": {
+      "type": "object",
+      "properties": {
+        "tld": {
+          "type": "string",
+          "title": "Top Level Domain",
+          "description": "The last segment of the domain name",
+          "pattern": "^([a-z]{2}.)?[a-z]{2,3}$"
+        },
+        "currency": {
+          "type": "string",
+          "title": "Currency",
+          "description": "Countrys currency",
+          "default": "€",
+          "deprecated": "lives in site-config"
+        },
+        "defaultLocale": {
+          "title": "Default Locale",
+          "type": "string",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+          "deprecated": "lives in site-config"
+        },
+        "baseUrl": {
+          "title": "Base URL",
+          "type": "string",
+          "format": "uri",
+          "deprecated": "lives in site-config"
+        },
+        "allowRobots": {
+          "title": "Allow robots",
+          "description": "Allow/Disallow robots to crawl this site",
+          "type": "boolean",
+          "default": true
+        },
+        "protocol": {
+          "title": "Protocol",
+          "type": "string",
+          "pattern": "^https?$",
+          "default": "https"
+        },
+        "socialNetworkAccounts": {
+          "title": "Social Network Accounts",
+          "$ref": "#/definitions/socialAccounts"
+        },
+        "gtm": {
+          "title": "Google Tag Manager",
+          "$ref": "#/definitions/googleTagManager"
+        },
+        "appcast": {
+          "title": "Appcast tracking",
+          "$ref": "#/definitions/appcast"
+        },
+        "features": { "title": "Features", "$ref": "#/definitions/features" },
+        "cmsEnv": {
+          "title": "Enviroment for CMS contents",
+          "description": "Get contents from our CMS for the specified enviroment",
+          "type": "string",
+          "pattern": "^[a-z]+$"
+        },
+        "radiusSearch": {
+          "title": "RadiusSearch dropdown values",
+          "description": "Defines the values in the radius search except the default search radius",
+          "type": "object",
+          "properties": {
+            "numbers": {
+              "type": "array",
+              "items": { "type": "number", "min": 0 }
+            }
+          }
+        }
+      },
+      "required": ["tld", "defaultLocale", "baseUrl", "gtm", "features"]
+    },
+    "adsenseSearch": {
+      "type": "object",
+      "properties": {
+        "active": { "title": "Active", "type": "boolean", "default": false },
+        "pubId": { "title": "Publisher ID", "type": "string" },
+        "language": {
+          "title": "Language for adsense",
+          "type": "string",
+          "enum": ["de", "en", "nl", "fr"]
+        },
+        "adsafe": {
+          "title": "family safe - high = family safe, medium = non family safe, low = adult",
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        },
+        "adtest": {
+          "title": "Test Mode",
+          "type": "string",
+          "enum": ["on", "off"]
+        },
+        "location": {
+          "title": "Ads display location information",
+          "type": "boolean"
+        },
+        "sellerRatings": {
+          "title": "Ads display seller ratings",
+          "type": "boolean"
+        },
+        "siteLinks": {
+          "title": "Ads display links to deeper content",
+          "type": "boolean"
+        },
+        "belowResult": {
+          "title": "Show Adsense below the result page",
+          "type": "string",
+          "enum": ["never", "always", "alwaysExceptPageOne"],
+          "default": "always"
+        }
+      },
+      "required": ["pubId", "language", "adsafe", "adtest"]
+    },
+    "googleTagManager": {
+      "type": "object",
+      "properties": {
+        "containerId": { "title": "Container ID", "type": "string" },
+        "url": { "title": "URL", "type": "string", "format": "uri" },
+        "iframeUrl": {
+          "title": "IFrame URL",
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": ["containerId", "url", "iframeUrl"]
+    },
+    "appcast": {
+      "type": "object",
+      "properties": {
+        "eventUrls": {
+          "type": "object",
+          "properties": {
+            "clickout": { "type": "string" },
+            "expired": { "type": "string" },
+            "signup": { "type": "string" }
+          }
+        }
+      }
+    },
+    "feature": {
+      "type": "object",
+      "properties": {
+        "active": { "title": "Active", "type": "boolean", "default": false }
+      }
+    },
+    "socialAccounts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "string",
+            "enum": [
+              "facebook",
+              "twitter",
+              "instagram",
+              "googleplus",
+              "xing",
+              "linkedIn",
+              "pinterest"
+            ]
+          },
+          "link": { "type": "string" }
+        },
+        "required": ["link", "network"]
+      }
+    },
+    "jobHoverTabs": {
+      "type": "string",
+      "enum": ["description", "duties", "location", "similarJobs"],
+      "enumNames": [
+        "Description Tab",
+        "Duties Tab",
+        "Location Tab",
+        "Similar Jobs Tab"
+      ]
+    },
+    "filterCategories": {
+      "type": "string",
+      "enum": [
+        "function",
+        "seniority",
+        "sectorLevel1",
+        "sectorLevel2",
+        "sectorLevel3",
+        "sectorLevel4",
+        "sectorLevel5",
+        "employmentTypes",
+        "workingTimes",
+        "industries",
+        "companyType",
+        "companies",
+        "regionIndependent"
+      ]
+    },
+    "affiliateManager": {
+      "title": "Affiliate Manager",
+      "type": "object",
+      "required": ["name", "position", "mail"],
+      "properties": {
+        "name": { "type": "string", "title": "Name" },
+        "image": {
+          "type": "string",
+          "title": "image",
+          "description": "New images new to be integrated by IT"
+        },
+        "position": { "type": "string", "title": "Position" },
+        "phone": { "type": "string", "title": "Phone number" },
+        "mail": { "type": "string", "title": "Email address" }
+      }
+    },
+    "affiliatePartner": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "link": { "type": "string" }
+      },
+      "required": ["link", "name"]
+    },
+    "features": {
+      "title": "Features",
+      "type": "object",
+      "properties": {
+        "recaptchaV3": {
+          "title": "Recpatcha v3 integration",
+          "description": "Enables recaptcha v3 - Runs on every page visit, logging scores not taking any action.",
+          "$ref": "#/definitions/feature"
+        },
+        "typeform": {
+          "title": "typeform Integration",
+          "description": "Enables a Page for typeform integration (Find your Perfect Job)",
+          "type": "object",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "iframeUrl": {
+              "title": "Iframe URL",
+              "type": "string",
+              "default": ""
+            }
+          },
+          "required": ["active", "iframeUrl"]
+        },
+        "googleOneTap": {
+          "title": "OneTap",
+          "description": "Enables Google and/or Facebook OneTap prompt.",
+          "type": "object",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "clientId": {
+              "title": "Client ID",
+              "description": "Google Client ID - can be obtained from IT",
+              "type": "string"
+            },
+            "facebookClientId": {
+              "title": "Client ID",
+              "description": "Facebook Client ID - can be obtained from IT",
+              "type": "string"
+            },
+            "platforms": {
+              "type": "array",
+              "title": "Platforms",
+              "description": "Login platforms to be used. Platforms will be tried in the configured order.",
+              "items": {
+                "type": "string",
+                "enum": ["google", "facebook"],
+                "default": ["google"]
+              }
+            },
+            "jobalert": {
+              "title": "Ask for jobalert after Login",
+              "description": "If no search query is present, first query will be used when available",
+              "type": "boolean",
+              "default": false
+            },
+            "jobalertDisableDelayedOptin": {
+              "title": "Disable delayed jobalert optin",
+              "description": "Disables the jobalert optin after login when we do not have a search query (e.g. on homepage)",
+              "type": "boolean",
+              "default": false,
+              "deprecated": "always enabled"
+            },
+            "ownDisclaimer": {
+              "title": "Show own TaC & privacy disclaimer below",
+              "type": "boolean",
+              "default": false
+            },
+            "jobalertShowModalConfirmation": {
+              "title": "Show modal confirmation after subscribing the jobalert",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "allowBingAdsRobot": {
+          "title": "BingAds Robot",
+          "description": "Allows the Bing Ads Robot in robots.txt",
+          "$ref": "#/definitions/feature"
+        },
+        "trackOnResultpage": {
+          "title": "GTM Tracking on Result Page",
+          "description": "Does GTM Tracking on the Result Page, uses ServerSide Redirect afterwards for faster redirects",
+          "$ref": "#/definitions/feature"
+        },
+        "partner": {
+          "title": "Partner Page",
+          "description": "Enables partner page and adds it to the footer. Prerequisite: Partner and Country Manager data need to be intergrated by IT",
+          "$ref": "#/definitions/feature"
+        },
+        "swipeTest": {
+          "title": "JobItem swipeable test",
+          "deprecated": "decided not to integrate swipe gestures",
+          "$ref": "#/definitions/feature"
+        },
+        "flatJobItem": {
+          "title": "JobItems have a flat optic",
+          "deprecated": "default design now - deleteMe",
+          "$ref": "#/definitions/feature"
+        },
+        "enterSubmitsExpertSearchOnly": {
+          "title": "Search: Enter Submits Only Expert Search",
+          "description": "Enter submits search only if both title and location are filled",
+          "$ref": "#/definitions/feature"
+        },
+        "experimentalElasticsearch5": {
+          "title": "Search in ES 5",
+          "deprecated": "this flag is no longer used",
+          "$ref": "#/definitions/feature"
+        },
+        "seoContent": {
+          "title": "SEO: Show Seo Content on Search Result Page",
+          "description": "Includes SEO texts in search result page sidebar. Prerequisites: SEO Texts need to be configured for specific searches in the Backoffice.",
+          "$ref": "#/definitions/feature"
+        },
+        "breadcrumbs": {
+          "title": "Breadcrumbs",
+          "deprecated": "no longer supported",
+          "$ref": "#/definitions/feature"
+        },
+        "resetfilter": {
+          "title": "Filter: Reset Filter Button",
+          "description": "Adds a button to reset all filter at once.",
+          "$ref": "#/definitions/feature"
+        },
+        "jobalert": {
+          "type": "object",
+          "title": "Job Alert",
+          "description": "Enabled jobalert registration. Prerequisite: Jobalert mails are translated.",
+          "properties": {
+            "active": { "type": "boolean", "default": false },
+            "expandInlineFormInitially": {
+              "title": "Expand Inline Form Initially",
+              "description": "If active, the inline jobalert form on the search result page will be expanded directly. Otherwise the user needs to click once to expand it. (Facelift not supported)",
+              "type": "boolean",
+              "default": false
+            },
+            "inlineJobalertIndexLarge": {
+              "title": "Inline Jobalert Index (Large devices)",
+              "description": "Defines the index of the inline jobalert in the search result list on large devices (only Facelift)",
+              "type": "number",
+              "min": 2,
+              "default": 5
+            },
+            "inlineJobalertIndexSmall": {
+              "title": "Inline Jobalert Index (Small devices)",
+              "description": "Defines the index of the inline jobalert in the search result list on small devices (only Facelift)",
+              "type": "number",
+              "min": 2,
+              "default": 5
+            },
+            "variant": {
+              "title": "Job Alert: Variant",
+              "description": "Variant of job alert item to toggle between background colors.",
+              "type": "string",
+              "enum": ["blue", "white"],
+              "default": "blue"
+            },
+            "hideModalConfirmation": {
+              "title": "Hide modal confirmation when subscribing to a Jobalert",
+              "description": "OneTap has a separate config for this",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "optinmonster": {
+          "type": "object",
+          "title": "Job Alert: Optin Modal",
+          "description": "If active a jobalert registration modal will be triggered after a configured amount of seconds.",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "variant": {
+              "title": "Variant",
+              "type": "string",
+              "enum": ["envelope", "flat"],
+              "default": "envelope"
+            },
+            "triggerDelayInSeconds": {
+              "title": "Time to Trigger",
+              "description": "After how many seconds the Optin should appear.",
+              "type": "number",
+              "default": 45
+            }
+          }
+        },
+        "footerSeoLinks": {
+          "title": "SEO: Footer Links",
+          "description": "Show links to other indexed searches at the bottom of a page. Prerequisite: Links need to be integrated by IT.",
+          "$ref": "#/definitions/feature"
+        },
+        "press": {
+          "title": "Press Page",
+          "description": "Enables press pages and adds it to the footer. Press releases are managed in an external CMS (https://cosmicjs.com/)",
+          "$ref": "#/definitions/feature"
+        },
+        "companyFilter": {
+          "title": "Filter: Company Filter",
+          "description": "Integrates company filter to the search header section. Prerequisite: Company name mapping needs to be integrated by IT.",
+          "$ref": "#/definitions/feature"
+        },
+        "analyses": {
+          "title": "Analyses Page (DE only)",
+          "description": "Enables analyses pages with basic data statistics and adds it to footer.",
+          "$ref": "#/definitions/feature"
+        },
+        "adSense": {
+          "type": "object",
+          "title": "Marketing: Ad Sense below Search Results",
+          "description": "Enables Ad Sense on search result page. Additional configuration needs to be done in google tag manager. Should not be activated together with Custom Ad Sense.",
+          "properties": {
+            "mobileID": {
+              "title": "Mobile ID",
+              "type": "string",
+              "deprecated": "is now placed in google tag manager"
+            },
+            "desktopID": {
+              "title": "Desktop ID",
+              "type": "string",
+              "deprecated": "is now placed in google tag manager"
+            },
+            "active": { "title": "Active", "type": "boolean", "default": false }
+          }
+        },
+        "customAdsenseSearch": {
+          "title": "Marketing: Ad Sense Custom Search below Search Results",
+          "description": "Enables Custom Ad Sense on search result page. Should not be activated together with Regular Ad Sense. Links will open in new tab",
+          "$ref": "#/definitions/adsenseSearch"
+        },
+        "charts": {
+          "title": "Charts on Analysis Page (DE only)",
+          "description": "Show statistic charts on analysis page",
+          "$ref": "#/definitions/feature"
+        },
+        "popunder": {
+          "title": "Marketing: Popunder",
+          "description": "Activate popunder for paid users. Prerequisites: partner/own popunder backoffice configuration.",
+          "type": "object",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "openPopUnderViaTitle": {
+              "title": "Show PopUnder with ONLY title searches.",
+              "type": "boolean",
+              "default": true
+            },
+            "openPopUnderViaLocation": {
+              "title": "Show PopUnder with ONLY location searches.",
+              "type": "boolean",
+              "default": true
+            },
+            "content": {
+              "type": "string",
+              "title": "Content",
+              "enum": ["jobAlert", "partnerJobs", "partnerRegister"],
+              "default": "jobAlert"
+            },
+            "jobsWithProviderLogo": {
+              "title": "Display provider logo for results on the left",
+              "type": "boolean",
+              "default": false
+            },
+            "allowJobAlertInJPopunder": {
+              "title": "Allow JobAlert to be used in the Joblift Popunder",
+              "type": "boolean",
+              "deprecated": "use content attribute for jobalert config",
+              "default": false
+            },
+            "cookieExpiryInDays": {
+              "type": "number",
+              "title": "Cookie Expiry In Days",
+              "default": 21
+            },
+            "newDesign": {
+              "deprecated": "design property added due to higher amount of designs",
+              "title": "New page design",
+              "type": "boolean",
+              "default": false
+            },
+            "design": {
+              "title": "Page Design",
+              "type": "string",
+              "enum": ["old", "dark", "white"],
+              "enumNames": [
+                "Old Design",
+                "Dark BG Job Section",
+                "White BG Job Section"
+              ],
+              "default": "old"
+            },
+            "numberOfJobs": {
+              "type": "number",
+              "title": "Number of Jobs displayed in the Joblift Popunder",
+              "default": 5
+            }
+          }
+        },
+        "jobSearchSuggestion": {
+          "title": "Search: Type Ahead for Job Title",
+          "description": "Type ahead suggestions for title field. Suggestions are calculated once a day based on user searches.",
+          "type": "object",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "locationAware": {
+              "title": "Location Aware",
+              "description": "Only return suggestions with results for the current location",
+              "type": "boolean",
+              "default": false
+            },
+            "showNumJobs": {
+              "title": "Show Num Jobs",
+              "description": "Show the number of Jobs for each suggestion",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "jobLocationSuggestion": {
+          "title": "Search: Type Ahead for Job Location",
+          "description": "Type ahead suggestions for location field via Google API. ",
+          "$ref": "#/definitions/feature"
+        },
+        "getCurrentLocation": {
+          "title": "Search: Current Location Prefill",
+          "description": "Asks the user for his/her current location and uses it to prefill the location search box",
+          "type": "object",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "permissionButton": {
+              "title": "Display a button that triggers the location permission request on click.",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "searchRadius": {
+          "title": "Search: Radius Search",
+          "description": "Integrate radius search.",
+          "$ref": "#/definitions/feature"
+        },
+        "emptyInputTooltip": {
+          "title": "Search: Empty Input Tooltip",
+          "description": "Display a tooltip when the user leaves an input field empty. Shows suggestions for job titles. Prerequisites: suggestions need to be configured in the backoffice.",
+          "type": "object",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "hideForMobileAndTablet": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["homepage", "location_search"]
+              }
+            },
+            "hideForDesktop": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["homepage", "location_search"]
+              }
+            },
+            "supressSearchWithoutLocation": {
+              "title": "Suppress search on click without Location given",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "recentDivider": {
+          "title": "Job Alert: Recent Divider",
+          "description": "Show a red line between recent and older jobs when the user opens the search result list from a jobalert.",
+          "$ref": "#/definitions/feature"
+        },
+        "regionIndependentFilter": {
+          "$ref": "#/definitions/feature",
+          "title": "Filter: Region Independent",
+          "description": "Include filter for jobs that are not region independent in the header filter. Keywords to tag jobs as region independent need to be integrated by IT."
+        },
+        "showTimeCreated": {
+          "$ref": "#/definitions/feature",
+          "title": "JobItem: Show published date"
+        },
+        "limitTimeCreated": {
+          "type": "object",
+          "title": "JobItem: Limit published date",
+          "description": "Show custom message for older job items based on threshold. Only applies if \"Show published date\" is active",
+          "properties": {
+            "active": { "type": "boolean", "default": true },
+            "threshold": {
+              "title": "Threshold",
+              "description": "Job age threshold in days",
+              "type": "number",
+              "default": 30
+            },
+            "message": {
+              "type": "string",
+              "title": "Message",
+              "description": "Custom message to show when threshold is reached. You can use {days} placeholder, e.g. \"Older than {days} days\"",
+              "minLength": 1
+            }
+          }
+        },
+        "newTag": {
+          "type": "object",
+          "title": "Job Item: Configure \"new\" tag",
+          "description": "Configure after how many days the [new] tag will disappear. Defaults to 21 when turned off.",
+          "properties": {
+            "threshold": {
+              "type": "number",
+              "title": "[new] tag Threshold",
+              "description": "After how many days the [new] tag will disappear. Defaults to 21 when turned off.",
+              "default": 21
+            },
+            "active": { "type": "boolean", "default": true }
+          }
+        },
+        "login": {
+          "type": "object",
+          "title": "User Login",
+          "description": "Enable user login via social, local and/or passwordless accounts. Prerequisite: Login specific mails need to be translated.",
+          "properties": {
+            "socialProvider": {
+              "type": "array",
+              "title": "Active Social Login Providers",
+              "items": {
+                "type": "string",
+                "enum": ["LinkedIn", "Facebook", "Google"],
+                "minLength": 1
+              }
+            },
+            "localLogin": {
+              "title": "Local Login",
+              "description": "Allow user to login with a Username/Password registered with joblift, in addition to social logins.",
+              "type": "boolean",
+              "default": false
+            },
+            "passwordlessLogin": {
+              "title": "Passwordless Login",
+              "description": "Allow login and registration without a password",
+              "type": "boolean",
+              "default": false
+            },
+            "active": { "type": "boolean", "default": false },
+            "directLoginLink": {
+              "title": "Direct Login Link",
+              "description": "Allow user to request a direct login link that is sent per Mail.",
+              "type": "boolean",
+              "default": false
+            },
+            "resetPassword": {
+              "title": "Reset Password",
+              "description": "Show a \"reset password\" link on the login form.",
+              "type": "boolean",
+              "default": false
+            },
+            "jobseekerRegistration": {
+              "title": "Jobseeker Signup",
+              "description": "Use Jobseeker Page to register account",
+              "type": "boolean",
+              "default": false
+            }
+          },
+          "required": ["socialProvider"]
+        },
+        "directApply": {
+          "type": "object",
+          "title": "Direct Apply",
+          "description": "Allow users to apply to jobs through joblift. Prerequisites: job inventory with direct apply contacts, and customer whitelist for direct apply",
+          "properties": {
+            "active": {
+              "description": "Global toggle for direct apply.",
+              "type": "boolean",
+              "default": false
+            },
+            "requiresLogin": {
+              "title": "Direct Apply requires login",
+              "description": "Defines if a user needs to be logged in to be able to apply.",
+              "type": "boolean",
+              "default": true
+            }
+          }
+        },
+        "jobDetails": {
+          "title": "Job Details",
+          "description": "Toggles a details page that is shown for jobs with parsed details, instead of redirecting to the partner page directly.",
+          "$ref": "#/definitions/feature"
+        },
+        "showPartner": {
+          "type": "object",
+          "title": "Homepage: Show partner logos",
+          "description": "Prerequisite: partner logos need to be integrated by IT",
+          "properties": {
+            "partners": {
+              "type": "array",
+              "title": "Partners",
+              "description": "Partner will be shown on homepage, if its logo is available",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "active": { "type": "boolean", "default": false }
+          },
+          "required": ["partners"]
+        },
+        "showCompany": {
+          "type": "object",
+          "title": "Job Item: Hide Company for Configured Providers",
+          "description": "Do not show company name for a provider listed here. Eg. used for uk and cvlibrary as they do not supply proper company names",
+          "properties": {
+            "providerBlacklist": {
+              "title": "Blacklist (provider)",
+              "type": "array",
+              "items": { "type": "string", "title": "provider" }
+            },
+            "active": { "type": "boolean", "default": false }
+          }
+        },
+        "showDesktopFilter": {
+          "type": "object",
+          "title": "Show filter for large devices",
+          "deprecated": "header-one-row default after AB test",
+          "properties": {
+            "position": {
+              "type": "string",
+              "title": "Position",
+              "enum": ["below-header", "header-one-row"],
+              "default": "below-header"
+            },
+            "active": { "type": "boolean", "default": false }
+          }
+        },
+        "jobItemSize": {
+          "type": "object",
+          "title": "Set the size of a jobItem.",
+          "deprecated": "ab test showed no positive impact of different item sizes",
+          "properties": {
+            "variant": {
+              "type": "string",
+              "title": "Variant",
+              "enum": ["default", "compact", "xtraCompact"],
+              "default": "default"
+            },
+            "removeMarginBottom": { "type": "boolean", "default": false },
+            "active": { "type": "boolean", "default": false }
+          }
+        },
+        "removeJobItemProvider": {
+          "title": "Job Item: Hide Customer",
+          "description": "If enabled, the job item footer including the customer name will be removed.",
+          "$ref": "#/definitions/feature"
+        },
+        "lightDesign": {
+          "type": "object",
+          "title": "Light Design",
+          "description": "Option to test a lighter design similar to Indeed. ",
+          "deprecated": "light design failed in ab tests",
+          "properties": { "active": { "type": "boolean", "default": false } }
+        },
+        "useAlternativeFont": {
+          "title": "Use Roboto instead of the default Font \"Walsheim\"",
+          "deprecated": "Roboto removed",
+          "$ref": "#/definitions/feature"
+        },
+        "iFrameNavigator": {
+          "title": "Enable IFrame Navigator",
+          "description": "The result list items will link to the iframe based job navigator",
+          "deprecated": "iFrameNavigator did not succeed, therefore removed",
+          "type": "object",
+          "properties": {
+            "devices": {
+              "type": "array",
+              "title": "Devices",
+              "description": "The click machine will only be active on the specified devices",
+              "items": {
+                "type": "string",
+                "enum": ["phone", "tablet", "desktop"],
+                "minLength": 1
+              }
+            },
+            "titleAndLocationRequired": {
+              "type": "boolean",
+              "title": "Title and Location Required",
+              "description": "IFrame Navigator is restricted to searches with a title and a location",
+              "default": false
+            },
+            "active": { "type": "boolean", "default": false },
+            "blockSources": {
+              "type": "array",
+              "title": "Do not show iframes for these sources",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "blockProvider": {
+              "type": "array",
+              "title": "Do not show iframes for these provider",
+              "items": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "salary": {
+          "title": "Job Item: Show Salary",
+          "description": "Display job item salary for items with salary data. Prerequisite: Partner provides salary data and/or section & location specific salary data is integrated by IT (TitleLocationSalaryEnricher)",
+          "type": "object",
+          "properties": {
+            "active": { "type": "boolean", "default": false },
+            "showPeriod": {
+              "type": "boolean",
+              "description": "Toggle whether the salary should show the salary depending on the period otherwise \"min-max\" representation will be shown",
+              "default": false
+            },
+            "restrictToApprenticeships": {
+              "type": "boolean",
+              "title": "Restricted to apprenticeship sector",
+              "description": "Only display Salary data for jobs in the apprenticeship sector.",
+              "default": false
+            }
+          }
+        },
+        "accountJobalerts": {
+          "title": "Jobalert: Editing in Account Section",
+          "description": "Prerequisite: Jobalert is enabled.",
+          "$ref": "#/definitions/feature"
+        },
+        "seoIndexing": {
+          "title": "SEO: Allow Search Result Indexing",
+          "description": "If enabled search result pages with SEO texts will be allowed for indexing.",
+          "$ref": "#/definitions/feature"
+        },
+        "salaryComparisonPage": {
+          "title": "Salary Comparison Page for Training Positions",
+          "description": "Enable salary comparison page. Prerequisite: Salary data and texts for training positions is integrated by IT",
+          "$ref": "#/definitions/feature"
+        },
+        "seoTags": {
+          "type": "object",
+          "title": "Job Item: Configure Tag Display",
+          "description": "Configures tag categories to display. Prerequisite: Tag display is activated by search configuration.",
+          "properties": {
+            "categories": {
+              "type": "array",
+              "title": "Tag Categories",
+              "items": {
+                "type": "object",
+                "title": "Seo category",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Category name",
+                    "description": "industries, workingTimes, benefits, requirements, ..."
+                  },
+                  "blacklistedTags": {
+                    "type": "array",
+                    "title": "Blacklisted Tags",
+                    "description": "Ignore all configured tags. Use the key not the translation forblacklisting",
+                    "items": { "type": "string", "title": "Blacklisted Tag" }
+                  },
+                  "maxTags": {
+                    "type": "number",
+                    "title": "Maximum Tags",
+                    "description": "Maximum of tags for this category",
+                    "default": 3
+                  }
+                }
+              }
+            },
+            "maxTags": {
+              "type": "number",
+              "title": "Maximum Tags to Show",
+              "description": "How many tags a JobItem can maximally have.",
+              "min": 1
+            },
+            "tags": {
+              "type": "array",
+              "title": "Valid Tags to display",
+              "deprecated": "is now part of category configuration",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "tagsPerCategory": {
+              "type": "number",
+              "deprecated": "is now part of category configuration",
+              "title": "Tags per Category",
+              "description": "How many tags per category such as Benefits or LanguageSkills to display for each JobItem",
+              "min": 1
+            },
+            "categoryOrdering": {
+              "type": "array",
+              "title": "Priority Ordering of Tags",
+              "deprecated": "is now part of category configuration",
+              "description": "In which order to display tags.",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "active": { "type": "boolean", "default": false }
+          }
+        },
+        "rememberJobs": {
+          "title": "Remember Jobs",
+          "description": "Enabled the possibility to remember jobs for users (heart button on each item)",
+          "$ref": "#/definitions/feature"
+        },
+        "rememberAnimation": {
+          "title": "Remember Jobs: Animate Jobitem on Remember Click",
+          "description": "Enables an animation on remember-click. Prerequisite: Remember jobs is active",
+          "$ref": "#/definitions/feature"
+        },
+        "showUSPs": {
+          "type": "object",
+          "title": "Homepage: Show USPs",
+          "description": "Display unique selling points on our homepage. Hint: If USPs are disabled on homepage, feature: \"stretch blue background to fill screen\" should be enabled.",
+          "properties": {
+            "active": {
+              "title": "Show USPs on homepage",
+              "type": "boolean",
+              "default": false
+            },
+            "resultpage": {
+              "title": "Also show USPs on result page",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "showNewsBanner": {
+          "type": "object",
+          "title": "PressPage: Display News Banner",
+          "description": "Displayes news banner from CosmicJS.",
+          "properties": {
+            "active": {
+              "title": "Show banner on press page",
+              "type": "boolean",
+              "default": false
+            },
+            "resultpage": {
+              "title": "Also show banner on result page",
+              "deprecated": "Banner need to be integrated via CMS or cached from CosmicJS",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "homepageFullscreenSearch": {
+          "title": "Homepage: Stretch Blue Background to Fill Screen",
+          "description": "This feature should only be activated if no other homepage-content-feature is active.",
+          "$ref": "#/definitions/feature"
+        },
+        "usabilla": {
+          "type": "object",
+          "title": "Embed Usabilla code",
+          "description": "If new feature should be tested using usabilla, a trigger must be integrated by IT.",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "id1": { "title": "Usabilla ID 1", "type": "string" },
+            "id2": { "title": "Usabilla ID 2", "type": "string" }
+          }
+        },
+        "reducedClickoutArea": {
+          "title": "Clickout on jobtitle click",
+          "description": "This being toggled OFF clickouts work via job-button (desktop) and entire item (mobile)",
+          "deprecated": "integrated as default behavior (Desktop reduced, mobile normal clickout)",
+          "$ref": "#/definitions/feature"
+        },
+        "showAverageSalaryOnResultsPage": {
+          "title": "Search Result Page: Show Average Salary Banner",
+          "description": "Show salary banner above search results. Prerequisite: static salary data is integrated by IT.",
+          "$ref": "#/definitions/feature"
+        },
+        "hideDirectApplyLink": {
+          "title": "Direct Apply: Hide Apply Link for Jobitems with Details",
+          "description": "Hides extra ‘direct apply’ link on jobitems. Consequence: User needs to visit job details before he can apply.",
+          "$ref": "#/definitions/feature"
+        },
+        "simpleLandingPage": {
+          "title": "Simple landing page design",
+          "deprecated": "activated after ab-test",
+          "$ref": "#/definitions/feature"
+        },
+        "similarJobsLandingPage": {
+          "type": "object",
+          "title": "Similar Jobs Landing Page (booking.com style)",
+          "deprecated": "now part of similar Jobs feature toggle",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "similarJobsAmount": {
+              "title": "Amount of Similar Jobs",
+              "type": "number",
+              "default": 10
+            }
+          }
+        },
+        "similarJobs": {
+          "type": "object",
+          "title": "Similar Jobs",
+          "description": "Enables similar jobs in general and its applications: result page, details, marketing landing page (booking.com solution)",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "similarItemsOnResultPage": {
+              "title": "Similar Jobs on Result Page",
+              "type": "number",
+              "min": 0,
+              "default": 3
+            },
+            "similarItemsOnResultPageIndex": {
+              "title": "Listindex for Similar Jobs Positioning on Result Page",
+              "type": "number",
+              "default": 7
+            },
+            "trackedItemsForResultList": {
+              "title": "Tracked Items for Result Page",
+              "description": "Amount of last clicked items, that are used for similarity calculation",
+              "type": "number",
+              "min": 0,
+              "default": 2
+            },
+            "similarItemsOnJobDetailsPage": {
+              "title": "Similar Jobs on JobDetails Page",
+              "type": "number",
+              "default": 4
+            },
+            "similarJobsOnLandingPage": {
+              "title": "Similar Jobs on Landing Page (booking.com)",
+              "type": "number",
+              "default": 10
+            },
+            "similarJobsInPreview": {
+              "title": "Similar Jobs in Job Preview",
+              "type": "number",
+              "default": 4
+            }
+          }
+        },
+        "clickableJobItemTags": {
+          "title": "Job Item: Clickable job item tags",
+          "description": "If enabled the user can click on tags to activate additional search filter.",
+          "$ref": "#/definitions/feature"
+        },
+        "salaryBenchmark": {
+          "title": "Search Result Page: Salary Benchmark in Sidebar",
+          "description": "A salary benchmark shown in the sidebar on desktop devices. Prerequisite: Salary benchmark has been integrated by IT.",
+          "$ref": "#/definitions/feature"
+        },
+        "simpleJobAlertDesign": {
+          "title": "Job Alert: Simple Form Design",
+          "description": "Changes jobalert registration forms to a simpler design.",
+          "$ref": "#/definitions/feature",
+          "deprecated": "Failed in AB test, design removed"
+        },
+        "openJobInNewWindow": {
+          "title": "Job Item: Opens Job Link in a New Window",
+          "description": "If enabled all job item partner links will be opened in a new window instead of a new tab. Hint: Depending on your browser version this might still only open a new tab.",
+          "$ref": "#/definitions/feature"
+        },
+        "scrollingSidebarContent": {
+          "type": "object",
+          "title": "Search Result Page: Scrolling sidebar content",
+          "description": "After the sidebar is scrolled out of view a sticky container appears below. Prerequisite: The chosen feature needs to be active.",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "content": {
+              "type": "string",
+              "title": "Scrolling content",
+              "enum": ["SimilarJobs", "JobAlert", "SideBarFilter"],
+              "default": "JobAlert"
+            }
+          }
+        },
+        "jobHoverPreview": {
+          "type": "object",
+          "title": "Job Item: Job Preview",
+          "description": "Show a preview of a job on the result page. If none of the tabs are active this will behave as if the feature is inactive.REDESIGN: will always include description and location information",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "showfor": {
+              "title": "Show Preview for",
+              "type": "string",
+              "enum": ["small", "medium", "both"],
+              "enumNames": [
+                "Mobile Users",
+                "Desktop and Tablet Users",
+                "All Users"
+              ],
+              "default": "both"
+            },
+            "detailsParsed": {
+              "title": "Show Preview for",
+              "type": "string",
+              "enum": ["parsed", "unparsed", "both"],
+              "enumNames": [
+                "Details-parsed Jobs",
+                "Non-details-parsed Jobs",
+                "All Jobs"
+              ],
+              "default": "both"
+            },
+            "description": {
+              "title": "Description Tab",
+              "description": "A Job Preview Tab that shows either the job description or (if present) the parsed job details Remember to Also add this tab to the tabOrder or the Tab will not be shown.",
+              "type": "boolean",
+              "default": true
+            },
+            "descriptionLength": {
+              "title": "Description character cap",
+              "description": "Descriptions with more characters than the defined size will be cut",
+              "type": "number",
+              "min": 0,
+              "default": 375
+            },
+            "duties": {
+              "title": "Duties Tab",
+              "description": "A Job Preview Tab that shows the Duties section for parsed jobs. Remember to ALSO add this tab to the tabOrder or the Tab will not be shown.",
+              "type": "boolean",
+              "default": false
+            },
+            "location": {
+              "title": "Location Tab",
+              "description": "A Job Preview Tab that shows a GoogleMaps Map with a pin or area of a jobs location(s). Remember to ALSO add this tab to the tabOrder or the Tab will not be shown.",
+              "type": "boolean",
+              "default": false
+            },
+            "similarJobs": {
+              "title": "Similar Jobs Tab",
+              "description": "A Job Preview Tab that shows Similar Jobs according to the SimilarJobs Feature Config Remember to ALSO add this tab to the tabOrder or the Tab will not be shown.",
+              "type": "boolean",
+              "default": false
+            },
+            "tabOrder": {
+              "type": "array",
+              "title": "Tab Order",
+              "description": "Select the order of the tabs. A tab in this list will not show unless it is activated using the toggles above.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "tabType": {
+                    "title": "Tab type",
+                    "$ref": "#/definitions/jobHoverTabs"
+                  }
+                },
+                "required": ["tabType"]
+              }
+            },
+            "defaultTab": {
+              "title": "Default Tab",
+              "description": "if the specified tab is not active or in the tabOrder this will fall back to the first (left-most) visible tab",
+              "default": "description",
+              "$ref": "#/definitions/jobHoverTabs"
+            }
+          },
+          "required": ["tabOrder", "defaultTab"]
+        },
+        "affiliate": {
+          "title": "Affiliate Page",
+          "description": "Enables affiliate page and adds a footer link",
+          "type": "object",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "manager": { "$ref": "#/definitions/affiliateManager" },
+            "partner": {
+              "title": "Affiliate Partner",
+              "type": "array",
+              "items": { "$ref": "#/definitions/affiliatePartner" }
+            }
+          }
+        },
+        "sidebarFilter": {
+          "type": "object",
+          "title": "Filter: Job Categories in Sidebar",
+          "description": "Displays job categories of the current result based on title categories in the search result list sidebar (Expert Pusher).",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "category": {
+              "title": "Category",
+              "type": "string",
+              "enum": ["sectorLevel1", "employmentTypes"],
+              "default": "sectorLevel1"
+            },
+            "listIndexOnMobile": {
+              "title": "List Index for Mobile",
+              "description": "The filter will be included between the search result items at the configured position",
+              "type": "number",
+              "default": 4
+            },
+            "showTooltip": {
+              "title": "Show Tooltip",
+              "type": "boolean",
+              "default": false
+            },
+            "tooltipOffsetInSec": {
+              "title": "Show Tooltip After Seconds",
+              "type": "number",
+              "default": 5
+            },
+            "pushFacetsFoundOnPage": {
+              "title": "Push facets found on resultpage",
+              "description": "If a listed facet is found within the resultitems it is displayed at the top of the list",
+              "type": "boolean",
+              "default": false
+            },
+            "hideForMobile": {
+              "title": "Dont show this feature on mobile",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "showFilterAsTags": {
+          "type": "object",
+          "title": "Filter: Show Filter as Tags",
+          "description": "Configuration for displaying active additional filters on top of the search result.",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "showAllActiveFilters": {
+              "title": "Include all active filters",
+              "description": "If active: the filter bar does show all active filters, including filter from the header section like workingTimes",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "similarJobsFilterPerItem": {
+          "type": "object",
+          "title": "Job Item: Show Similar Jobs Link on Each Item",
+          "description": "Action will link to a filtered search based on the configured categories. This does not use similarity algorithm",
+          "properties": {
+            "active": {
+              "title": "Active",
+              "type": "boolean",
+              "default": false
+            },
+            "categories": {
+              "title": "Primary Filter Categories",
+              "type": "array",
+              "items": { "$ref": "#/definitions/filterCategories" }
+            },
+            "fallbackCategories1": {
+              "title": "Fallback Categories 1",
+              "description": "Will be used, if a job item has non of the primary filter categories",
+              "type": "array",
+              "items": { "$ref": "#/definitions/filterCategories" }
+            },
+            "fallbackCategories2": {
+              "title": "Fallback Categories 2",
+              "description": "Will be used, if a job item has non of the primary or fallback 1 filter categories",
+              "type": "array",
+              "items": { "$ref": "#/definitions/filterCategories" }
+            },
+            "hideForMobile": {
+              "title": "Dont show this feature on mobile",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "removeIrrelevantItems": {
+          "title": "Job Item: Remove Irrelevant Items",
+          "description": "Includes a thumps down button to remove an item from the current and all following search results of the user.",
+          "type": "object",
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "title": "Active",
+              "default": false
+            },
+            "cookieExpiryInDays": {
+              "type": "number",
+              "title": "Cookie Expiry In Days",
+              "default": 180
+            }
+          }
+        },
+        "blog": {
+          "title": "Blog / Career Insider",
+          "description": "Adds a footer link to our UK blog",
+          "type": "object",
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "title": "Active",
+              "default": false
+            },
+            "link": {
+              "type": "string",
+              "title": "Footer link destination",
+              "description": "URL the footer link should lead to. Default: \"https://joblift.co.uk/career-insider/\""
+            }
+          }
+        },
+        "minifiedCookieHint": {
+          "title": "Cookie Hint minified",
+          "$ref": "#/definitions/feature"
+        },
+        "infiniteScrolling": {
+          "title": "Search Result Page: Infinite scrollable resultlist (mobile)",
+          "description": "Load more items automatically as the bottom of the list is reached. Mobile only.",
+          "type": "object",
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "title": "Active",
+              "default": false
+            },
+            "jobalertBreakerIndex": {
+              "type": "number",
+              "default": 28,
+              "title": "Number of items after which the jobalert should be rendered. Component will not render with Index < 1 (Not supported by FACELIFT, use jobalert.inlineJobalertIndexSmall instead)"
+            },
+            "similarJobsBreakerIndex": {
+              "type": "number",
+              "default": 58,
+              "title": "Number of items after which the similar jobs display should be rendered. Component will not render with Index < 1"
+            }
+          }
+        },
+        "facelift": {
+          "title": "Blue & Yellow Page Design (redesign 2018)",
+          "$ref": "#/definitions/feature"
+        },
+        "additionalSearchIcon": {
+          "title": "Adding another fixed positioned search icon on the mobile SearchResultPage",
+          "$ref": "#/definitions/feature"
+        },
+        "stickyHeader": {
+          "title": "Sticky header",
+          "description": "Header should never scroll out of the viewport",
+          "type": "object",
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "title": "Active",
+              "default": false
+            },
+            "desktop": {
+              "type": "boolean",
+              "title": "Desktop",
+              "default": false
+            },
+            "mobile": { "type": "boolean", "title": "Mobile", "default": false }
+          }
+        },
+        "inputPlaceholder": {
+          "title": "Placeholder for Searchbar Input fields",
+          "type": "object",
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "title": "Active",
+              "default": false
+            },
+            "title": {
+              "type": "string",
+              "default": "",
+              "title": "Placeholder for title input"
+            },
+            "location": {
+              "type": "string",
+              "default": "",
+              "title": "Placeholder for location input"
+            }
+          }
+        },
+        "uncollapseSearchLayer": {
+          "title": "Initially uncollapse the mobile search-layer for city searches",
+          "$ref": "#/definitions/feature"
+        },
+        "jobitemTitle": {
+          "title": "Jobitem Title length (mobile only)",
+          "description": "Adjust the number of lines for jobitem titles",
+          "type": "object",
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "title": "Active",
+              "default": false
+            },
+            "citySearch": {
+              "type": "number",
+              "default": 1,
+              "title": "city search"
+            },
+            "titleSearch": {
+              "type": "number",
+              "default": 1,
+              "title": "title search"
+            },
+            "expertSearch": {
+              "type": "number",
+              "default": 1,
+              "title": "expert search"
+            }
+          }
+        },
+        "filterOrder": {
+          "title": "Filter: Ordering",
+          "type": "object",
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "title": "Active",
+              "default": false
+            },
+            "order": {
+              "type": "array",
+              "title": "Ordering",
+              "description": "Categories, that are not listed, will no longer be shown.",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "employmentTypes",
+                  "workingTimes",
+                  "industries",
+                  "companies",
+                  "timeCreatedFilter"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

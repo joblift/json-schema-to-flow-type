@@ -24,6 +24,7 @@ const resolveRef = (imports: Imports = {}) =>
         if (_.isEmpty(importRef)) {
           if (_.isEmpty(keyPathArr)) {
             return {
+              deprecated: value.deprecated,
               $ref: (imports['~'] || {}).id,
             };
           }
@@ -34,6 +35,7 @@ const resolveRef = (imports: Imports = {}) =>
 
           if (keyPathArr.length === 2 && _.first(keyPathArr) === 'definitions') {
             return ({
+              deprecated: value.deprecated,
               $ref: _.last(keyPathArr),
             });
           }
@@ -45,7 +47,10 @@ const resolveRef = (imports: Imports = {}) =>
           throw new Error(`missing import ${importRef}`);
         }
 
-        return _.cloneDeepWith(_.get(imports[importRef], keyPathArr), resolveRef({
+        return _.cloneDeepWith({
+          ..._.get(imports[importRef], keyPathArr),
+          deprecated: value.deprecated
+        }, resolveRef({
           '#': imports[importRef],
         }));
       }
