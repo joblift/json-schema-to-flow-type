@@ -19,7 +19,7 @@ import {
 
 import {
   toFlowType,
-  upperCamelCase,
+  prefixed,
 } from './FlowTypeGenerator';
 
 export {
@@ -31,7 +31,7 @@ export {
 export const toFlow = (flowSchema: FlowSchema, prefix: string = ''): Object =>
   t.exportNamedDeclaration(
     t.typeAlias(
-      t.identifier(prefix + upperCamelCase(flowSchema.$id)),
+      t.identifier(prefixed(prefix, flowSchema.$id)),
       null,
       toFlowType(flowSchema, prefix),
     ),

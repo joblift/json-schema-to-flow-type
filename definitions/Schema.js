@@ -1,3 +1,5 @@
+export type Prefix = string;
+
 export type SchemaArray = Array<Schema>;
 
 export type Inheritance = {
@@ -24,6 +26,7 @@ export type SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | 
 export type StringArray = Array<string>;
 
 export type Schema = {
+  prefix?: Prefix,
   id?: string,
   $ref?: string,
   $schema?: string,

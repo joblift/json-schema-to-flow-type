@@ -29,7 +29,7 @@ test('convert schema json with prefix', (t) => {
   const result = parseSchema({
     ...schemaJSON,
     id: 'Schema',
-  }, undefined, 'prefix$');
+  }, undefined, 'Prefix$');
 
   const savedResult = fse.readFileSync('./definitions/SchemaWithPrefix.js', 'utf8');
   t.is(result, savedResult);

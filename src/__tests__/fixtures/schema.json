@@ -3,6 +3,9 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "Core schema meta-schema",
   "definitions": {
+    "prefix": {
+      "type": "string"
+    },
     "schemaArray": {
       "type": "array",
       "minItems": 1,
@@ -80,6 +83,9 @@
   },
   "type": "object",
   "properties": {
+    "prefix": {
+      "$ref": "#/definitions/prefix"
+    },
     "id": {
       "type": "string",
       "format": "uri"

@@ -1,6 +1,8 @@
-export type prefix$SchemaArray = Array<prefix$Schema>;
+export type Prefix = string;
 
-export type prefix$Inheritance = {
+export type Prefix$SchemaArray = Array<Prefix$Schema>;
+
+export type Prefix$Inheritance = {
   key1?: string,
   key2?: string,
   key3?: string,
@@ -10,20 +12,21 @@ export type prefix$Inheritance = {
   key4?: string,
 };
 
-export type prefix$Exact = {|
+export type Prefix$Exact = {|
   key1?: string,
   key2?: string,
 |};
 
-export type prefix$PositiveInteger = number;
+export type Prefix$PositiveInteger = number;
 
-export type prefix$PositiveIntegerDefault0 = prefix$PositiveInteger;
+export type Prefix$PositiveIntegerDefault0 = Prefix$PositiveInteger;
 
-export type prefix$SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
+export type Prefix$SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
 
-export type prefix$StringArray = Array<string>;
+export type Prefix$StringArray = Array<string>;
 
-export type prefix$Schema = {
+export type Prefix$Schema = {
+  prefix?: Prefix,
   id?: string,
   $ref?: string,
   $schema?: string,
@@ -35,34 +38,34 @@ export type prefix$Schema = {
   exclusiveMaximum?: boolean,
   minimum?: number,
   exclusiveMinimum?: boolean,
-  maxLength?: prefix$PositiveInteger,
-  minLength?: prefix$PositiveIntegerDefault0,
+  maxLength?: Prefix$PositiveInteger,
+  minLength?: Prefix$PositiveIntegerDefault0,
   pattern?: string,
-  additionalItems?: boolean | prefix$Schema,
-  items?: prefix$Schema | prefix$SchemaArray,
-  maxItems?: prefix$PositiveInteger,
-  minItems?: prefix$PositiveIntegerDefault0,
+  additionalItems?: boolean | Prefix$Schema,
+  items?: Prefix$Schema | Prefix$SchemaArray,
+  maxItems?: Prefix$PositiveInteger,
+  minItems?: Prefix$PositiveIntegerDefault0,
   uniqueItems?: boolean,
-  maxProperties?: prefix$PositiveInteger,
-  minProperties?: prefix$PositiveIntegerDefault0,
-  required?: prefix$StringArray,
-  additionalProperties?: boolean | prefix$Schema,
+  maxProperties?: Prefix$PositiveInteger,
+  minProperties?: Prefix$PositiveIntegerDefault0,
+  required?: Prefix$StringArray,
+  additionalProperties?: boolean | Prefix$Schema,
   definitions?: {
-    [key: any]: prefix$Schema
+    [key: any]: Prefix$Schema
   },
   properties?: {
-    [key: any]: prefix$Schema
+    [key: any]: Prefix$Schema
   },
   patternProperties?: {
-    [key: any]: prefix$Schema
+    [key: any]: Prefix$Schema
   },
   dependencies?: {
-    [key: any]: (prefix$Schema | prefix$StringArray)
+    [key: any]: (Prefix$Schema | Prefix$StringArray)
   },
   enum?: Array<any>,
-  type?: prefix$SimpleTypes | Array<prefix$SimpleTypes>,
-  allOf?: prefix$SchemaArray,
-  anyOf?: prefix$SchemaArray,
-  oneOf?: prefix$SchemaArray,
-  not?: prefix$Schema,
+  type?: Prefix$SimpleTypes | Array<Prefix$SimpleTypes>,
+  allOf?: Prefix$SchemaArray,
+  anyOf?: Prefix$SchemaArray,
+  oneOf?: Prefix$SchemaArray,
+  not?: Prefix$Schema,
 };

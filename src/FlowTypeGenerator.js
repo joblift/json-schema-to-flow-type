@@ -13,6 +13,13 @@ import {
 type SchemaProcessor = (flowSchema: FlowSchema) => Object;
 
 export const upperCamelCase = (str: string): string => _.upperFirst(_.camelCase(str));
+export const prefixed = (prefix: string, rest: string) => {
+  const upperRest = upperCamelCase(rest);
+  if (prefix.split('$')[0] === upperRest) {
+    return upperRest;
+  }
+  return prefix + upperRest;
+}
 
 const optional = (astNode) =>
   _.assign(astNode, { optional: true });
@@ -80,7 +87,7 @@ const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor)
 
 export const toFlowType = (flowSchema: FlowSchema, prefix: string = ''): Object => {
   if (flowSchema.$flowRef) {
-    return t.genericTypeAnnotation(t.identifier(prefix + upperCamelCase(flowSchema.$flowRef)));
+    return t.genericTypeAnnotation(t.identifier(prefixed(prefix, flowSchema.$flowRef)));
   }
 
   if (flowSchema.$enum) {
