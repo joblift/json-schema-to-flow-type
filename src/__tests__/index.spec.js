@@ -1,7 +1,7 @@
 // @flow
 
 import test from 'ava';
-import fse from 'fs-extra';
+import fs from 'fs';
 import schemaJSON from './fixtures/schema.json';
 import schemaWithDeprecationJSON from './fixtures/schemaWithDeprecation.json';
 import appConfigJSON from './fixtures/appConfig.json';
@@ -19,7 +19,7 @@ test('convert schema json', (t) => {
     ...schemaJSON,
     id: 'Schema',
   });
-  const savedResult = fse.readFileSync('./definitions/Schema.js', 'utf8');
+  const savedResult = fs.readFileSync('./definitions/Schema.js', 'utf8');
   t.is(result, savedResult);
   // fse.outputFileSync('./definitions/Schema.js', result);
   t.pass('coverts json schema');
@@ -31,7 +31,7 @@ test('convert schema json with prefix', (t) => {
     id: 'Schema',
   }, undefined, 'Prefix$');
 
-  const savedResult = fse.readFileSync('./definitions/SchemaWithPrefix.js', 'utf8');
+  const savedResult = fs.readFileSync('./definitions/SchemaWithPrefix.js', 'utf8');
   t.is(result, savedResult);
   // fse.outputFileSync('./definitions/SchemaWithPrefix.js', result);
   t.pass('coverts json schema with prefix');
@@ -43,7 +43,7 @@ test('convert schema json with deprecation', t => {
     id: 'Schema',
   });
 
-  const savedResult = fse.readFileSync('./definitions/SchemaWithDeprecation.js', 'utf8');
+  const savedResult = fs.readFileSync('./definitions/SchemaWithDeprecation.js', 'utf8');
   t.is(result, savedResult);
   // fse.outputFileSync('./definitions/SchemaWithDeprecation.js', result);
   t.pass('coverts json schema with deprecation');
@@ -55,7 +55,7 @@ test('convert simple json', t => {
     id: 'Schema',
   });
 
-  const savedResult = fse.readFileSync('./definitions/simple.js', 'utf8');
+  const savedResult = fs.readFileSync('./definitions/simple.js', 'utf8');
   t.is(result, savedResult);
   // fse.outputFileSync('./definitions/simple.js', result);
   t.pass('coverts json schema with deprecation');
@@ -69,7 +69,7 @@ test('convert appConfig json', t => {
     'http://joblift.de/configuration/common': appConfigDependencyCommonJSON,
   });
 
-  const savedResult = fse.readFileSync('./definitions/appConfig.js', 'utf8');
+  const savedResult = fs.readFileSync('./definitions/appConfig.js', 'utf8');
   t.is(result, savedResult);
   // fse.outputFileSync('./definitions/appConfig.js', result);
   t.pass('coverts json schema with deprecation');
@@ -83,7 +83,7 @@ test('convert swagger json', (t) => {
     './fixtures/schema.json': schemaJSON,
   });
 
-  const savedResult = fse.readFileSync('./definitions/Swagger.js', 'utf8');
+  const savedResult = fs.readFileSync('./definitions/Swagger.js', 'utf8');
   t.is(result, savedResult);
   // fse.outputFileSync('./definitions/Swagger.js', result);
   t.pass('coverts swagger schema');
