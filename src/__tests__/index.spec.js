@@ -21,7 +21,7 @@ test('convert schema json', (t) => {
   });
   const savedResult = fs.readFileSync('./definitions/Schema.js', 'utf8');
   t.is(result, savedResult);
-  // fse.outputFileSync('./definitions/Schema.js', result);
+  // fs.writeFileSync('./definitions/Schema.js', result);
   t.pass('coverts json schema');
 });
 
@@ -29,11 +29,13 @@ test('convert schema json with prefix', (t) => {
   const result = parseSchema({
     ...schemaJSON,
     id: 'Schema',
-  }, undefined, 'Prefix$');
+  }, undefined, {
+    prefix: 'Prefix$',
+  });
 
   const savedResult = fs.readFileSync('./definitions/SchemaWithPrefix.js', 'utf8');
   t.is(result, savedResult);
-  // fse.outputFileSync('./definitions/SchemaWithPrefix.js', result);
+  // fs.writeFileSync('./definitions/SchemaWithPrefix.js', result);
   t.pass('coverts json schema with prefix');
 });
 
@@ -45,7 +47,7 @@ test('convert schema json with deprecation', t => {
 
   const savedResult = fs.readFileSync('./definitions/SchemaWithDeprecation.js', 'utf8');
   t.is(result, savedResult);
-  // fse.outputFileSync('./definitions/SchemaWithDeprecation.js', result);
+  // fs.writeFileSync('./definitions/SchemaWithDeprecation.js', result);
   t.pass('coverts json schema with deprecation');
 })
 
@@ -57,7 +59,21 @@ test('convert simple json', t => {
 
   const savedResult = fs.readFileSync('./definitions/simple.js', 'utf8');
   t.is(result, savedResult);
-  // fse.outputFileSync('./definitions/simple.js', result);
+  // fs.writeFileSync('./definitions/simple.js', result);
+  t.pass('coverts json schema with deprecation');
+})
+
+test('convert simple json - readonly', t => {
+  const result = parseSchema({
+    ...simpleJSON,
+    id: 'Schema',
+  }, {}, {
+    readOnly: true,
+  });
+
+  const savedResult = fs.readFileSync('./definitions/simple-readonly.js', 'utf8');
+  t.is(result, savedResult);
+  // fs.writeFileSync('./definitions/simple-readonly.js', result);
   t.pass('coverts json schema with deprecation');
 })
 
@@ -71,7 +87,7 @@ test('convert appConfig json', t => {
 
   const savedResult = fs.readFileSync('./definitions/appConfig.js', 'utf8');
   t.is(result, savedResult);
-  // fse.outputFileSync('./definitions/appConfig.js', result);
+  // fs.writeFileSync('./definitions/appConfig.js', result);
   t.pass('coverts json schema with deprecation');
 })
 
@@ -85,6 +101,6 @@ test('convert swagger json', (t) => {
 
   const savedResult = fs.readFileSync('./definitions/Swagger.js', 'utf8');
   t.is(result, savedResult);
-  // fse.outputFileSync('./definitions/Swagger.js', result);
+  // fs.writeFileSync('./definitions/Swagger.js', result);
   t.pass('coverts swagger schema');
 });

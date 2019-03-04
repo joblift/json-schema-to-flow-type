@@ -12,7 +12,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint && ava -v",
-    "build": "rm -rf lib && babel src --ignore __**__ -d lib",
+    "build:babel": "rm -rf lib && babel src --ignore src/__tests__ src -d lib",
+    "build": "npm run build:babel",
     "prepublish": "flow-typed update && npm test && npm run build"
   },
   "devDependencies": {

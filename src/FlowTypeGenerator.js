@@ -13,7 +13,7 @@ import {
 type SchemaProcessor = (flowSchema: FlowSchema) => Object;
 
 export const upperCamelCase = (str: string): string => _.upperFirst(_.camelCase(str));
-export const prefixed = (prefix: string, rest: string) => {
+export const prefixed = (prefix: string = '', rest: string) => {
   const upperRest = upperCamelCase(rest);
   if (prefix.split('$')[0] === upperRest) {
     return upperRest;
@@ -32,7 +32,7 @@ const processArraySchema = (flowSchema: FlowSchema, processor: SchemaProcessor):
     ]),
   );
 
-const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor): Object => {
+const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor, readOnly?: boolean): Object => {
   let properties = _.map(
     flowSchema.$properties || {},
     (fieldFlowSchema: FlowSchema, field: string) => {
@@ -43,6 +43,7 @@ const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor)
       const ast = t.objectTypeProperty(
         identifier,
         processor(fieldFlowSchema),
+        readOnly ? t.variance('plus') : undefined,
       );
 
       if (fieldFlowSchema.$deprecated) {
@@ -85,9 +86,14 @@ const processObjectSchema = (flowSchema: FlowSchema, processor: SchemaProcessor)
   );
 };
 
-export const toFlowType = (flowSchema: FlowSchema, prefix: string = ''): Object => {
+export type Options = {
+  readOnly?: boolean,
+  prefix?: string,
+};
+
+export const toFlowType = (flowSchema: FlowSchema, options: Options = {}): Object => {
   if (flowSchema.$flowRef) {
-    return t.genericTypeAnnotation(t.identifier(prefixed(prefix, flowSchema.$flowRef)));
+    return t.genericTypeAnnotation(t.identifier(prefixed(options.prefix, flowSchema.$flowRef)));
   }
 
   if (flowSchema.$enum) {
@@ -100,19 +106,19 @@ export const toFlowType = (flowSchema: FlowSchema, prefix: string = ''): Object 
   }
 
   if (flowSchema.$flowType === 'Array') {
-    return processArraySchema(flowSchema, schema => toFlowType(schema, prefix));
+    return processArraySchema(flowSchema, schema => toFlowType(schema, options));
   }
 
   if (flowSchema.$flowType === 'Object') {
-    return processObjectSchema(flowSchema, schema => toFlowType(schema, prefix));
+    return processObjectSchema(flowSchema, schema => toFlowType(schema, options), options.readOnly);
   }
 
   if (flowSchema.$union) {
-    return t.unionTypeAnnotation(_.map(flowSchema.$union, schema => toFlowType(schema, prefix)));
+    return t.unionTypeAnnotation(_.map(flowSchema.$union, schema => toFlowType(schema, options)));
   }
 
   if (flowSchema.$intersection) {
-    return t.intersectionTypeAnnotation(_.map(flowSchema.$intersection, schema => toFlowType(schema, prefix)));
+    return t.intersectionTypeAnnotation(_.map(flowSchema.$intersection, schema => toFlowType(schema, options)));
   }
 
 
