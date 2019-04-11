@@ -1,8 +1,8 @@
-export type Prefix = string;
+declare type Prefix = string;
 
-export type SchemaArray = Array<Schema>;
+declare type SchemaArray = Array<Schema>;
 
-export type Inheritance = {
+declare type Inheritance = {
   key1?: string,
   key2?: string,
   key3?: string,
@@ -12,20 +12,20 @@ export type Inheritance = {
   key4?: string,
 };
 
-export type Exact = {|
+declare type Exact = {|
   key1?: string,
   key2?: string,
 |};
 
-export type PositiveInteger = number;
+declare type PositiveInteger = number;
 
-export type PositiveIntegerDefault0 = PositiveInteger;
+declare type PositiveIntegerDefault0 = PositiveInteger;
 
-export type SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
+declare type SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
 
-export type StringArray = Array<string>;
+declare type StringArray = Array<string>;
 
-export type Schema = {
+declare type Schema = {
   prefix?: Prefix,
   id?: string,
   $ref?: string,

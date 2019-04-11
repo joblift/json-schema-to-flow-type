@@ -1,4 +1,4 @@
-export type Schema = {
+declare type Schema = {
   // DEPRECATED: Deprecated object
   // properties?: {
   //   [key: any]: Schema

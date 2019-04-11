@@ -1,4 +1,4 @@
-export type Country = {
+declare type Country = {
   // DEPRECATED: lives in site-config
   // baseUrl: string
   // DEPRECATED: lives in site-config
@@ -18,7 +18,7 @@ export type Country = {
   },
 };
 
-export type AdsenseSearch = {
+declare type AdsenseSearch = {
   active?: boolean,
   pubId: string,
   language: "de" | "en" | "nl" | "fr",
@@ -30,13 +30,13 @@ export type AdsenseSearch = {
   belowResult?: "never" | "always" | "alwaysExceptPageOne",
 };
 
-export type GoogleTagManager = {
+declare type GoogleTagManager = {
   containerId: string,
   url: string,
   iframeUrl: string,
 };
 
-export type Appcast = {
+declare type Appcast = {
   eventUrls?: {
     clickout?: string,
     expired?: string,
@@ -44,20 +44,20 @@ export type Appcast = {
   }
 };
 
-export type Feature = {
+declare type Feature = {
   active?: boolean
 };
 
-export type SocialAccounts = Array<{
+declare type SocialAccounts = Array<{
   network: "facebook" | "twitter" | "instagram" | "googleplus" | "xing" | "linkedIn" | "pinterest",
   link: string,
 }>;
 
-export type JobHoverTabs = "description" | "duties" | "location" | "similarJobs";
+declare type JobHoverTabs = "description" | "duties" | "location" | "similarJobs";
 
-export type FilterCategories = "function" | "seniority" | "sectorLevel1" | "sectorLevel2" | "sectorLevel3" | "sectorLevel4" | "sectorLevel5" | "employmentTypes" | "workingTimes" | "industries" | "companyType" | "companies" | "regionIndependent";
+declare type FilterCategories = "function" | "seniority" | "sectorLevel1" | "sectorLevel2" | "sectorLevel3" | "sectorLevel4" | "sectorLevel5" | "employmentTypes" | "workingTimes" | "industries" | "companyType" | "companies" | "regionIndependent";
 
-export type AffiliateManager = {
+declare type AffiliateManager = {
   name: string,
   image?: string,
   position: string,
@@ -65,12 +65,12 @@ export type AffiliateManager = {
   mail: string,
 };
 
-export type AffiliatePartner = {
+declare type AffiliatePartner = {
   name: string,
   link: string,
 };
 
-export type Features = {
+declare type Features = {
   // DEPRECATED: Failed in AB test, design removed
   // simpleJobAlertDesign?: Feature
   // DEPRECATED: now part of similar Jobs feature toggle
@@ -365,7 +365,7 @@ export type Features = {
   },
 };
 
-export type Schema = {
+declare type Schema = {
   // DEPRECATED: lives in site-config
   // baseUrl: string
   // DEPRECATED: lives in site-config

@@ -1,8 +1,8 @@
-export type Prefix = string;
+declare type Prefix = string;
 
-export type Prefix$SchemaArray = Array<Prefix$Schema>;
+declare type Prefix$SchemaArray = Array<Prefix$Schema>;
 
-export type Prefix$Inheritance = {
+declare type Prefix$Inheritance = {
   key1?: string,
   key2?: string,
   key3?: string,
@@ -12,20 +12,20 @@ export type Prefix$Inheritance = {
   key4?: string,
 };
 
-export type Prefix$Exact = {|
+declare type Prefix$Exact = {|
   key1?: string,
   key2?: string,
 |};
 
-export type Prefix$PositiveInteger = number;
+declare type Prefix$PositiveInteger = number;
 
-export type Prefix$PositiveIntegerDefault0 = Prefix$PositiveInteger;
+declare type Prefix$PositiveIntegerDefault0 = Prefix$PositiveInteger;
 
-export type Prefix$SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
+declare type Prefix$SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
 
-export type Prefix$StringArray = Array<string>;
+declare type Prefix$StringArray = Array<string>;
 
-export type Prefix$Schema = {
+declare type Prefix$Schema = {
   prefix?: Prefix,
   id?: string,
   $ref?: string,

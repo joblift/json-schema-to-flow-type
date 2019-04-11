@@ -30,13 +30,10 @@ export {
 };
 
 export const toFlow = (flowSchema: FlowSchema, options: Options): Object =>
-  t.exportNamedDeclaration(
-    t.typeAlias(
-      t.identifier(prefixed(options.prefix, flowSchema.$id)),
-      null,
-      toFlowType(flowSchema, options),
-    ),
-    [],
+  t.declareTypeAlias(
+    t.identifier(prefixed(options.prefix, flowSchema.$id)),
+    null,
+    toFlowType(flowSchema, options),
   );
 
 export const schemaToFlow = (flowSchema: FlowSchema, options: Options): string =>

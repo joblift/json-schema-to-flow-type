@@ -1,4 +1,4 @@
-export type Inheritance = {
+declare type Inheritance = {
   key1?: string,
   key2?: string,
   key3?: string,
@@ -8,12 +8,12 @@ export type Inheritance = {
   key4?: string,
 };
 
-export type Exact = {|
+declare type Exact = {|
   key1?: string,
   key2?: string,
 |};
 
-export type Info = {|
+declare type Info = {|
   title: string,
   version: string,
   description?: string,
@@ -23,48 +23,48 @@ export type Info = {|
   [key: any]: VendorExtension,
 |};
 
-export type Contact = {|
+declare type Contact = {|
   name?: string,
   url?: string,
   email?: string,
   [key: any]: VendorExtension,
 |};
 
-export type License = {|
+declare type License = {|
   name: string,
   url?: string,
   [key: any]: VendorExtension,
 |};
 
-export type Paths = {|
+declare type Paths = {|
   [key: any]: VendorExtension | PathItem
 |};
 
-export type Definitions = {
+declare type Definitions = {
   [key: any]: Schema
 };
 
-export type ParameterDefinitions = {
+declare type ParameterDefinitions = {
   [key: any]: Parameter
 };
 
-export type ResponseDefinitions = {
+declare type ResponseDefinitions = {
   [key: any]: Response
 };
 
-export type ExternalDocs = {|
+declare type ExternalDocs = {|
   description?: string,
   url: string,
   [key: any]: VendorExtension,
 |};
 
-export type Examples = {
+declare type Examples = {
   [key: any]: any
 };
 
-export type MimeType = string;
+declare type MimeType = string;
 
-export type Operation = {|
+declare type Operation = {|
   tags?: Array<string>,
   summary?: string,
   description?: string,
@@ -80,7 +80,7 @@ export type Operation = {|
   [key: any]: VendorExtension,
 |};
 
-export type PathItem = {|
+declare type PathItem = {|
   $ref?: string,
   get?: Operation,
   put?: Operation,
@@ -93,13 +93,13 @@ export type PathItem = {|
   [key: any]: VendorExtension,
 |};
 
-export type Responses = {|
+declare type Responses = {|
   [key: any]: ResponseValue | VendorExtension
 |};
 
-export type ResponseValue = Response | JsonReference;
+declare type ResponseValue = Response | JsonReference;
 
-export type Response = {|
+declare type Response = {|
   description: string,
   schema?: Schema | FileSchema,
   headers?: Headers,
@@ -107,11 +107,11 @@ export type Response = {|
   [key: any]: VendorExtension,
 |};
 
-export type Headers = {
+declare type Headers = {
   [key: any]: Header
 };
 
-export type Header = {|
+declare type Header = {|
   type: "string" | "number" | "integer" | "boolean" | "array",
   format?: string,
   items?: PrimitivesItems,
@@ -133,9 +133,9 @@ export type Header = {|
   [key: any]: VendorExtension,
 |};
 
-export type VendorExtension = any;
+declare type VendorExtension = any;
 
-export type BodyParameter = {|
+declare type BodyParameter = {|
   description?: string,
   name: string,
   in: "body",
@@ -144,7 +144,7 @@ export type BodyParameter = {|
   [key: any]: VendorExtension,
 |};
 
-export type HeaderParameterSubSchema = {|
+declare type HeaderParameterSubSchema = {|
   required?: boolean,
   in?: "header",
   description?: string,
@@ -169,7 +169,7 @@ export type HeaderParameterSubSchema = {|
   [key: any]: VendorExtension,
 |};
 
-export type QueryParameterSubSchema = {|
+declare type QueryParameterSubSchema = {|
   required?: boolean,
   in?: "query",
   description?: string,
@@ -195,7 +195,7 @@ export type QueryParameterSubSchema = {|
   [key: any]: VendorExtension,
 |};
 
-export type FormDataParameterSubSchema = {|
+declare type FormDataParameterSubSchema = {|
   required?: boolean,
   in?: "formData",
   description?: string,
@@ -221,7 +221,7 @@ export type FormDataParameterSubSchema = {|
   [key: any]: VendorExtension,
 |};
 
-export type PathParameterSubSchema = {|
+declare type PathParameterSubSchema = {|
   required: true,
   in?: "path",
   description?: string,
@@ -246,11 +246,11 @@ export type PathParameterSubSchema = {|
   [key: any]: VendorExtension,
 |};
 
-export type NonBodyParameter = HeaderParameterSubSchema | FormDataParameterSubSchema | QueryParameterSubSchema | PathParameterSubSchema;
+declare type NonBodyParameter = HeaderParameterSubSchema | FormDataParameterSubSchema | QueryParameterSubSchema | PathParameterSubSchema;
 
-export type Parameter = BodyParameter | NonBodyParameter;
+declare type Parameter = BodyParameter | NonBodyParameter;
 
-export type Schema = {|
+declare type Schema = {|
   $ref?: string,
   format?: string,
   title?: string,
@@ -286,7 +286,7 @@ export type Schema = {|
   [key: any]: VendorExtension,
 |};
 
-export type FileSchema = {|
+declare type FileSchema = {|
   format?: string,
   title?: string,
   description?: string,
@@ -299,7 +299,7 @@ export type FileSchema = {|
   [key: any]: VendorExtension,
 |};
 
-export type PrimitivesItems = {|
+declare type PrimitivesItems = {|
   type?: "string" | "number" | "integer" | "boolean" | "array",
   format?: string,
   items?: PrimitivesItems,
@@ -320,13 +320,13 @@ export type PrimitivesItems = {|
   [key: any]: VendorExtension,
 |};
 
-export type Security = Array<SecurityRequirement>;
+declare type Security = Array<SecurityRequirement>;
 
-export type SecurityRequirement = {
+declare type SecurityRequirement = {
   [key: any]: Array<string>
 };
 
-export type Xml = {|
+declare type Xml = {|
   name?: string,
   namespace?: string,
   prefix?: string,
@@ -335,24 +335,24 @@ export type Xml = {|
   [key: any]: VendorExtension,
 |};
 
-export type Tag = {|
+declare type Tag = {|
   name: string,
   description?: string,
   externalDocs?: ExternalDocs,
   [key: any]: VendorExtension,
 |};
 
-export type SecurityDefinitions = {
+declare type SecurityDefinitions = {
   [key: any]: (BasicAuthenticationSecurity | ApiKeySecurity | Oauth2ImplicitSecurity | Oauth2PasswordSecurity | Oauth2ApplicationSecurity | Oauth2AccessCodeSecurity)
 };
 
-export type BasicAuthenticationSecurity = {|
+declare type BasicAuthenticationSecurity = {|
   type: "basic",
   description?: string,
   [key: any]: VendorExtension,
 |};
 
-export type ApiKeySecurity = {|
+declare type ApiKeySecurity = {|
   type: "apiKey",
   name: string,
   in: "header" | "query",
@@ -360,7 +360,7 @@ export type ApiKeySecurity = {|
   [key: any]: VendorExtension,
 |};
 
-export type Oauth2ImplicitSecurity = {|
+declare type Oauth2ImplicitSecurity = {|
   type: "oauth2",
   flow: "implicit",
   scopes?: Oauth2Scopes,
@@ -369,7 +369,7 @@ export type Oauth2ImplicitSecurity = {|
   [key: any]: VendorExtension,
 |};
 
-export type Oauth2PasswordSecurity = {|
+declare type Oauth2PasswordSecurity = {|
   type: "oauth2",
   flow: "password",
   scopes?: Oauth2Scopes,
@@ -378,7 +378,7 @@ export type Oauth2PasswordSecurity = {|
   [key: any]: VendorExtension,
 |};
 
-export type Oauth2ApplicationSecurity = {|
+declare type Oauth2ApplicationSecurity = {|
   type: "oauth2",
   flow: "application",
   scopes?: Oauth2Scopes,
@@ -387,7 +387,7 @@ export type Oauth2ApplicationSecurity = {|
   [key: any]: VendorExtension,
 |};
 
-export type Oauth2AccessCodeSecurity = {|
+declare type Oauth2AccessCodeSecurity = {|
   type: "oauth2",
   flow: "accessCode",
   scopes?: Oauth2Scopes,
@@ -397,55 +397,55 @@ export type Oauth2AccessCodeSecurity = {|
   [key: any]: VendorExtension,
 |};
 
-export type Oauth2Scopes = {
+declare type Oauth2Scopes = {
   [key: any]: string
 };
 
-export type MediaTypeList = Array<MimeType>;
+declare type MediaTypeList = Array<MimeType>;
 
-export type ParametersList = Array<(Parameter | JsonReference)>;
+declare type ParametersList = Array<(Parameter | JsonReference)>;
 
-export type SchemesList = Array<("http" | "https" | "ws" | "wss")>;
+declare type SchemesList = Array<("http" | "https" | "ws" | "wss")>;
 
-export type CollectionFormat = "csv" | "ssv" | "tsv" | "pipes";
+declare type CollectionFormat = "csv" | "ssv" | "tsv" | "pipes";
 
-export type CollectionFormatWithMulti = "csv" | "ssv" | "tsv" | "pipes" | "multi";
+declare type CollectionFormatWithMulti = "csv" | "ssv" | "tsv" | "pipes" | "multi";
 
-export type Title = string;
+declare type Title = string;
 
-export type Description = string;
+declare type Description = string;
 
-export type Default = any;
+declare type Default = any;
 
-export type MultipleOf = number;
+declare type MultipleOf = number;
 
-export type Maximum = number;
+declare type Maximum = number;
 
-export type ExclusiveMaximum = boolean;
+declare type ExclusiveMaximum = boolean;
 
-export type Minimum = number;
+declare type Minimum = number;
 
-export type ExclusiveMinimum = boolean;
+declare type ExclusiveMinimum = boolean;
 
-export type MaxLength = number;
+declare type MaxLength = number;
 
-export type MinLength = number;
+declare type MinLength = number;
 
-export type Pattern = string;
+declare type Pattern = string;
 
-export type MaxItems = number;
+declare type MaxItems = number;
 
-export type MinItems = number;
+declare type MinItems = number;
 
-export type UniqueItems = boolean;
+declare type UniqueItems = boolean;
 
-export type Enum = Array<any>;
+declare type Enum = Array<any>;
 
-export type JsonReference = {|
+declare type JsonReference = {|
   $ref: string
 |};
 
-export type Swagger = {|
+declare type Swagger = {|
   swagger: "2.0",
   info: Info,
   host?: string,
