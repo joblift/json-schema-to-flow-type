@@ -1,5 +1,5 @@
 {
-  "name": "@marudor/json-schema-to-flow-type",
+  "name": "@joblift/json-schema-to-flow-type",
   "version": "2.0.0",
   "ava": {
     "files": [
@@ -54,11 +54,10 @@
   ],
   "license": "WTFPL",
   "repository": {
-    "url": "git@github.com:morlay/json-schema-to-flow-type.git",
+    "url": "git@github.com:joblift/json-schema-to-flow-type.git",
     "type": "git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "author": "Morlay <morlay@qq.com>"
+    "@joblift:registry": "https://nexus.jol.pm/repository/npm-hosted/"
+  }
 }
