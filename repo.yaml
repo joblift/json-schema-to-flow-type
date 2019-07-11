@@ -1,0 +1,7 @@
+name: json-schema-to-flow-type
+type: tooling
+language: node
+chapter: frontend
+responsibles:
+- Reyna DeLogé
+- Sameeullah
